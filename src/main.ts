@@ -1,12 +1,17 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import VueQrcode from "vue-qrcode";
 
-import App from './App.vue'
-import router from './router'
+console.log(" -------->", VueQrcode);
 
-const app = createApp(App)
+import App from "./App.vue";
+import router from "./router";
 
-app.use(createPinia())
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.component("vue-qrcode", VueQrcode);
+
+app.use(createPinia());
+app.use(router);
+
+app.mount("#app");
