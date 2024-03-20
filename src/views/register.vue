@@ -88,7 +88,7 @@
   }
 
   .center {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 110px);
   }
 
   .title {
@@ -111,7 +111,7 @@
     justify-content: center;
     align-items: center;
     letter-spacing: 40px;
-    line-height: 50px;
+    line-height: 60px;
     font-weight: 700;
     border-radius: 10px;
     color: #fff;
