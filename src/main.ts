@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import VueQrcode from "vue-qrcode";
 
 import App from "./App.vue";
 import router from "./router";
@@ -9,8 +8,6 @@ import "vant/lib/index.css";
 import { Field, Popup, Picker } from "vant";
 
 const app = createApp(App);
-
-app.component("vue-qrcode", VueQrcode);
 
 app.use(createPinia());
 app.use(router);
