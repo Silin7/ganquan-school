@@ -1,14 +1,16 @@
 <script setup lang="ts">
-  const qrCodeValue = 'https://www.baidu.com'
-  const qrCodeSize = 300
+  import VueQr from 'vue-qr/src/packages/vue-qr.vue'
 </script>
 
 <template>
   <div class="qrcodePage">
     <div class="codeBox">
-      <vue-qrcode :value="qrCodeValue" :size="qrCodeSize">
-      </vue-qrcode>
+      <vue-qr qid="testid" text="https://www.baidu.com" :margin="0" :size="280" colorDark="#4545ff" colorLight="#fff">
+      </vue-qr>
     </div>
+    <!-- <div class="title">
+      长按识别二维码
+    </div> -->
   </div>
 </template>
 
@@ -16,13 +18,13 @@
   .qrcodePage {
     padding: 15px;
     height: 100vh;
-    background-color: #f0f0f4;
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   }
 
   .codeBox {
-    margin: 0 auto;
-    width: 180px;
-    height: 180px;
+    margin: 20vh auto 0;
+    width: 320px;
+    height: 320px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,8 +32,10 @@
     background-color: #fff;
   }
 
-  .codeBox img {
-    width: 150px;
-    height: 150px;
+  .title {
+    margin: 10px auto;
+    width: 320px;
+    line-height: 40px;
+    color: #646566;
   }
 </style>

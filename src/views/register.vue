@@ -59,9 +59,15 @@
       <div class="title">添加学生信息</div>
       <div class="cardBox">
         <van-field v-model="name" required label="学生姓名" placeholder="请输入学生姓名" input-align="right" />
+      </div>
+      <div class="cardBox">
         <van-field v-model="classes" required label="班级" placeholder="请选择班级" input-align="right" readonly
           @click="showPopup" />
+      </div>
+      <div class="cardBox">
         <van-field v-model="fphone" required label="爸爸手机号" placeholder="请输入爸爸手机号" input-align="right" />
+      </div>
+      <div class="cardBox">
         <van-field v-model="mphone" required label="妈妈手机号" placeholder="请输入妈妈手机号" input-align="right" />
       </div>
     </div>
@@ -77,7 +83,8 @@
 <style>
   .registerPage {
     padding: 15px;
-    background-color: #f0f0f4;
+    /* background-color: #f0f0f4; */
+    background-image:linear-gradient(120deg,#fdfbfb 0%, #ebedee 100%);
   }
 
   .center {
@@ -91,7 +98,8 @@
   }
 
   .cardBox {
-    padding: 20px 0;
+    margin-bottom: 20px;
+    padding: 10px 0;
     border-radius: 10px;
     background-color: #fff;
   }
