@@ -5,6 +5,7 @@
   import {
     showToast
   } from 'vant';
+  import axios from 'axios'
 
   const name = ref('')
   const classes = ref('')
@@ -44,13 +45,42 @@
   ];
 
   function classesConfirm(event: any) {
+    classes.value = event.selectedOptions[0].text
     console.log(' -------->', event.selectedOptions[0].text)
     console.log(' -------->', event.selectedOptions[0].value)
+    classesShow.value = false;
   };
 
   function classesCancel() {
+    classesShow.value = false;
     showToast('取消')
   };
+
+  async function saveFunc() {
+    if (!name.value) {
+      showToast('请填写学生姓名')
+      return
+    }
+    if (!classes.value) {
+    showToast('请选择班级')
+    return
+    }
+    if (!fphone.value) {
+    showToast('请填写爸爸手机号')
+    return
+    }
+    if (!mphone.value) {
+    showToast('请填写妈妈手机号')
+    return
+    }
+    const response = await axios.post('https://www.silin7.cn/huaxiansheng/ganquan/stu/save', {
+      name: name.value,
+      classes: classes.value,
+      fphone: fphone.value,
+      mphone: mphone.value,
+    })
+    console.log(response.data);
+  }
 </script>
 
 <template>
@@ -71,7 +101,7 @@
         <van-field v-model="mphone" required label="妈妈手机号" placeholder="请输入妈妈手机号" input-align="right" />
       </div>
     </div>
-    <div class="saveBtn">保存</div>
+    <div class="saveBtn" @click="saveFunc">保存</div>
 
     <!-- 选择班级弹框 -->
     <van-popup v-model:show="classesShow" position="bottom">
@@ -84,7 +114,7 @@
   .registerPage {
     padding: 15px;
     /* background-color: #f0f0f4; */
-    background-image:linear-gradient(120deg,#fdfbfb 0%, #ebedee 100%);
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   }
 
   .center {
