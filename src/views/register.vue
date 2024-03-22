@@ -1,13 +1,20 @@
 <script setup lang="ts">
   import {
-    ref
+    ref,
+    onMounted
   } from 'vue';
   import {
-    showToast
+    showToast,
+    showFailToast,
+    showSuccessToast,
   } from 'vant';
   import axios from 'axios'
+  import {
+    validateMobile,
+  } from '@/utils/regular'
 
   const name = ref('')
+  const classesName = ref('')
   const classes = ref('')
   const fphone = ref('')
   const mphone = ref('')
@@ -18,36 +25,20 @@
     classesShow.value = true;
   };
 
-  const classesData = [{
-      text: '一年级',
-      value: '1'
-    },
-    {
-      text: '二年级',
-      value: '2'
-    },
-    {
-      text: '三年级',
-      value: '3'
-    },
-    {
-      text: '四年级',
-      value: '4'
-    },
-    {
-      text: '五年级',
-      value: '5'
-    },
-    {
-      text: '六年级',
-      value: '6'
-    },
-  ];
+  const classesData: any = ref([]);
+
+  onMounted(() => {
+    for (let i = 1; i <= 34; i++) {
+      classesData.value.push({
+        text: `高一${i}班`,
+        value: i,
+      })
+    }
+  })
 
   function classesConfirm(event: any) {
-    classes.value = event.selectedOptions[0].text
-    console.log(' -------->', event.selectedOptions[0].text)
-    console.log(' -------->', event.selectedOptions[0].value)
+    classesName.value = event.selectedOptions[0].text
+    classes.value = event.selectedOptions[0].value
     classesShow.value = false;
   };
 
@@ -58,40 +49,54 @@
 
   async function saveFunc() {
     if (!name.value) {
-      showToast('请填写学生姓名')
+      showFailToast('请填写学生姓名')
       return
     }
     if (!classes.value) {
-    showToast('请选择班级')
-    return
+      showFailToast('请选择班级')
+      return
     }
     if (!fphone.value) {
-    showToast('请填写爸爸手机号')
-    return
+      showFailToast('请填写爸爸手机号')
+      return
+    }
+    if (!validateMobile(fphone.value)) {
+      showFailToast('爸爸手机号格式错误')
+      return
     }
     if (!mphone.value) {
-    showToast('请填写妈妈手机号')
-    return
+      showFailToast('请填写妈妈手机号')
+      return
     }
-    const response = await axios.post('https://www.silin7.cn/huaxiansheng/ganquan/stu/save', {
-      name: name.value,
-      classes: classes.value,
-      fphone: fphone.value,
-      mphone: mphone.value,
+    if (!validateMobile(mphone.value)) {
+      showFailToast('妈妈手机号格式错误')
+      return
+    }
+    const response: any = await axios.post('https://www.silin7.cn/ganquan/stu/save',null, {
+      params: {
+        name: name.value,
+        classes: classes.value,
+        fphone: fphone.value,
+        mphone: mphone.value,
+      }
     })
-    console.log(response.data);
+    if (response.data && response.data.code === 1) {
+      showSuccessToast('保存成功')
+    } else {
+      showFailToast('操作失败：' + response.data.message)
+    }
   }
 </script>
 
 <template>
   <div class="registerPage">
     <div class="center">
-      <div class="title">添加学生信息</div>
+      <div class="title">完善学生信息</div>
       <div class="cardBox">
         <van-field v-model="name" required label="学生姓名" placeholder="请输入学生姓名" input-align="right" />
       </div>
       <div class="cardBox">
-        <van-field v-model="classes" required label="班级" placeholder="请选择班级" input-align="right" readonly
+        <van-field v-model="classesName" required label="班级" placeholder="请选择班级" input-align="right" readonly
           @click="showPopup" />
       </div>
       <div class="cardBox">
