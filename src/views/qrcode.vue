@@ -5,8 +5,9 @@
 <template>
   <div class="qrcodePage">
     <div class="codeBox">
-      <vue-qr qid="testid" text="https://www.silin7.cn/huaxiansheng/#/register" :margin="0" :size="280"
-        colorDark="#4545ff" colorLight="#fff">
+      <vue-qr qid="testid" text="https://www.silin7.cn/ganquanSchool/#/register" :margin="0" :size="280"
+        colorDark="#4545ff" colorLight="#fff"
+        logoSrc="https://www.silin7.cn/ganquanSchool/ganquanxiaohui.jpg">
       </vue-qr>
     </div>
     <!-- <div class="title">
