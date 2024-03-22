@@ -4,9 +4,9 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: "/qrcode",
+      path: "/",
       name: "qrcode",
-      component: () => import("../views/qrcode.vue"),
+      component: () => import("@/views/qrcode.vue"),
     },
     {
       path: "/register",
